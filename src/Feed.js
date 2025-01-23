@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Feed.css";
 import { Create } from "@mui/icons-material";
 import { Image } from "@mui/icons-material";
@@ -6,15 +6,21 @@ import { Subscriptions } from "@mui/icons-material";
 import { CalendarViewDay } from "@mui/icons-material";
 import { EventNote } from "@mui/icons-material";
 import { InputOption } from "./InputOption";
+import { Post } from "./Post";
 export const Feed = () => {
+  const [posts, setPosts] = useState([]);
+  const sendPost = e => {
+    e.preventDefault();
+  }
+
   return (
     <div className="feed">
-      <div className="   ">
+      <div className="feed_inputContainer">
         <div className="feed_input">
           <Create />
           <form>
             <input type="text" />
-            <button type="submit">Send</button>
+            <button type="submit" onClick={sendPost}>Send</button>
           </form>
         </div>
         <div className="feed_inputOptions">
@@ -28,6 +34,15 @@ export const Feed = () => {
           />
         </div>
       </div>
+      {/*Post */}
+      {Post.map((post) => (
+        <post />
+      ))}
+      <Post
+        name="Cristian caro"
+        description="This is a test"
+        message="Wowo this worked"
+      />
     </div>
   );
 };
