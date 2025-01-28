@@ -13,6 +13,19 @@ export const Login = () => {
 
   const loginToApp = (e) => {
     e.preventDefault();
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((userAuth) => {
+        dispatch(
+          login({
+            email: userAuth.user.email,
+            uid: userAuth.user.uid,
+            displayName: userAuth.user.displayName,
+            profileUrl: userAuth.user.photoURL,
+          })
+        );
+      })
+      .catch((err) => alert(err.message));
   };
 
   const register = () => {
@@ -20,12 +33,16 @@ export const Login = () => {
       return alert("Please enter a full name!");
     }
 
-    auth.createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => { // Cambié userAuth por userCredential
-        return userCredential.user.updateProfile({
-          displayName: name,
-          photoURL: profilePic,
-        }).then(() => userCredential); // Retorno userCredential para el siguiente then
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // Cambié userAuth por userCredential
+        return userCredential.user
+          .updateProfile({
+            displayName: name,
+            photoURL: profilePic,
+          })
+          .then(() => userCredential); // Retorno userCredential para el siguiente then
       })
       .then((userCredential) => {
         dispatch(
