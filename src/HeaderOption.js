@@ -2,9 +2,9 @@ import React from "react";
 import "./HeaderOption.css";
 import { Avatar } from "@mui/material";
 
-export const HeaderOption = ({ avatar, Icon, title }) => {
+export const HeaderOption = ({ avatar, Icon, title, onClick }) => {
   return (
-    <div className="headerOption">
+    <div onClick={onClick} className="headerOption">
       {/**Verifica si icon existe y lo renderezia en componente icon */}
       {Icon && <Icon className="headerOption_icon" />}
       {avatar && <Avatar className="headerOption_icon" src={avatar} />}
