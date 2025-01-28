@@ -7,11 +7,12 @@ import { SupervisorAccount } from "@mui/icons-material";
 import { BusinessCenter } from "@mui/icons-material";
 import { Notifications } from "@mui/icons-material";
 import { Chat } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { auth } from "./firebase.js";
-import { logout } from "./features/userSlice";
+import { logout, selectUser } from "./features/userSlice";
 
 export const Header = () => {
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const logoutOfApp = () => {
     dispatch(logout());
@@ -37,8 +38,8 @@ export const Header = () => {
         <HeaderOption Icon={Chat} title="Messaging" />
         <HeaderOption Icon={Notifications} title="Notifications" />
         <HeaderOption
-          avatar="https://avatars.githubusercontent.com/u/99687046?v=4"
           title="Me"
+          avatar={true}
           onClick={logoutOfApp}
         />
       </div>
