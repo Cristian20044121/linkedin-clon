@@ -11,6 +11,7 @@ import { db, auth } from "./firebase";
 import firebase from "./firebase";
 import { useSelector } from "react-redux";
 import { selectUser } from "./features/userSlice";
+import FlipMove from "react-flip-move";
 
 export const Feed = () => {
   const user = useSelector(selectUser);
@@ -18,14 +19,16 @@ export const Feed = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    db.collection("posts").orderBy('timestamp', 'desc').onSnapshot((snapshot) =>
-      setPosts(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      )
-    );
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) =>
+        setPosts(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
   }, []);
 
   const sendPost = (e) => {
@@ -69,19 +72,23 @@ export const Feed = () => {
         </div>
       </div>
       {/*Post */}
-      {Array.isArray(posts) && posts.length > 0 ? (
-        posts.map(({ id, data: { name, description, message, photoUrl } }) => (
-          <Post
-            key={id}
-            name={name}
-            description={description}
-            message={message}
-            photoUrl={photoUrl}
-          />
-        ))
-      ) : (
-        <p>No hay publicaciones disponibles</p>
-      )}
+      <FlipMove>
+        {Array.isArray(posts) && posts.length > 0 ? (
+          posts.map(
+            ({ id, data: { name, description, message, photoUrl } }) => (
+              <Post
+                key={id}
+                name={name}
+                description={description}
+                message={message}
+                photoUrl={photoUrl}
+              />
+            )
+          )
+        ) : (
+          <p>No hay publicaciones disponibles</p>
+        )}
+      </FlipMove>
     </div>
   );
 };
