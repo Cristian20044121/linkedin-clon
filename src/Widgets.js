@@ -3,6 +3,7 @@ import "./Widgets.css";
 import { Info } from "@mui/icons-material";
 
 export const Widgets = () => {
+  const newArticle = (heading, subtitle) => {};
   return (
     <div className="widgets">
       <div className="widgets__header">
