@@ -45,7 +45,7 @@ function App() {
           {/* Feed */}
           <Feed />
 
-          {/* Widgets - Si necesitas agregar widgets */}
+          <Widgets />
         </div>
       )}
     </div>
