@@ -7,6 +7,7 @@ import { Login } from "./Login"; // Asegúrate de tener este componente creado e
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectUser } from "./features/userSlice";
 import { auth } from "./firebase";
+import { Widgets } from "./Widgets";
 
 function App() {
   const user = useSelector(selectUser);
