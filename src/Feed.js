@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./Feed.css";
-import { Create } from "@mui/icons-material";
-import { Image } from "@mui/icons-material";
-import { Subscriptions } from "@mui/icons-material";
-import { CalendarViewDay } from "@mui/icons-material";
-import { EventNote } from "@mui/icons-material";
+import { Create, Image, Subscriptions, CalendarViewDay, EventNote } from "@mui/icons-material";
 import { InputOption } from "./InputOption";
 import { Post } from "./Post";
 import { db, auth } from "./firebase";
 import firebase from "./firebase";
 import { useSelector } from "react-redux";
 import { selectUser } from "./features/userSlice";
-import FlipMove from "react-flip-move";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const Feed = () => {
   const user = useSelector(selectUser);
@@ -19,7 +15,7 @@ export const Feed = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    db.collection("posts")
+    const unsubscribe = db.collection("posts")
       .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) =>
         setPosts(
@@ -29,6 +25,7 @@ export const Feed = () => {
           }))
         )
       );
+    return () => unsubscribe();
   }, []);
 
   const sendPost = (e) => {
@@ -55,40 +52,34 @@ export const Feed = () => {
               type="text"
               placeholder="Start a post"
             />
-            <button type="submit" onClick={sendPost}>
-              Send
-            </button>
+            <button type="submit" onClick={sendPost}>Send</button>
           </form>
         </div>
         <div className="feed_inputOptions">
           <InputOption Icon={Image} title="Photo" color="#70b5f9" />
           <InputOption Icon={Subscriptions} title="Video" color="#E7A33E" />
           <InputOption Icon={EventNote} title="Event" color="#C0CBCD" />
-          <InputOption
-            Icon={CalendarViewDay}
-            title="Write article"
-            color="#7FC15E"
-          />
+          <InputOption Icon={CalendarViewDay} title="Write article" color="#7FC15E" />
         </div>
       </div>
       {/*Post */}
-      <FlipMove>
+      <AnimatePresence>
         {Array.isArray(posts) && posts.length > 0 ? (
-          posts.map(
-            ({ id, data: { name, description, message, photoUrl } }) => (
-              <Post
-                key={id}
-                name={name}
-                description={description}
-                message={message}
-                photoUrl={photoUrl}
-              />
-            )
-          )
+          posts.map(({ id, data: { name, description, message, photoUrl } }) => (
+            <motion.div
+              key={id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Post name={name} description={description} message={message} photoUrl={photoUrl} />
+            </motion.div>
+          ))
         ) : (
           <p>No hay publicaciones disponibles</p>
         )}
-      </FlipMove>
+      </AnimatePresence>
     </div>
   );
 };

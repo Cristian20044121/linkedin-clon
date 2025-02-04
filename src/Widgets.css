@@ -26,6 +26,29 @@
     padding: 10px;
     cursor: poiter;
 }
-.widgets_article:hover{
+
+.widgets_article:hover {
     background-color: whitesmoke;
+}
+
+.widgets_articleLeft {
+    color: #0177b7;
+    margin-right: 5px
+}
+
+.widgets_articleLeft>.MuiSvgIcon-root {
+    font-size: 15px;
+}
+
+.widgets_articleRight {
+    flex: 1
+}
+
+.widgets_articleRight>h4 {
+    font-size: 14px;
+}
+
+.widgets_artcileRight>p {
+    font-size: 12px;
+    color: gray;
 }

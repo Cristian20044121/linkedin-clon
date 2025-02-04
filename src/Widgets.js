@@ -4,7 +4,7 @@ import { Info } from "@mui/icons-material";
 import { FiberManualRecord } from "@mui/icons-material";
 
 export const Widgets = () => {
-  const newArticle = (heading, subtitle) => {
+  const newArticle = (heading, subtitle) => (
     <div className="widgets_article">
       <div className="widgets_articleLeft">
         <FiberManualRecord />
@@ -13,8 +13,8 @@ export const Widgets = () => {
         <h4>{heading}</h4>
         <p>{subtitle}</p>
       </div>
-    </div>;
-  };
+    </div>
+  );
   return (
     <div className="widgets">
       <div className="widgets__header">
@@ -22,6 +22,16 @@ export const Widgets = () => {
         <Info />
       </div>
       {newArticle("Caro React is back", "Top news - 9099 readers")}
+      {newArticle("Programming IA is strong", "Top news - 887")}
+      {newArticle("Programming IA is strong", "Top news - 887")}
+      {newArticle("Programming IA is strong", "Top news - 887")}
+      {newArticle("Programming IA is strong", "Top news - 887")}
+      {newArticle("Programming IA is strong", "Top news - 887")}
+      {newArticle("Programming IA is strong", "Top news - 887")}
+      {newArticle("Programming IA is strong", "Top news - 887")}
+      {newArticle("Programming IA is strong", "Top news - 887")}
+      {newArticle("Programming IA is strong", "Top news - 887")}
+      {newArticle("Programming IA is strong", "Top news - 887")}
       {newArticle("Programming IA is strong", "Top news - 887")}
     </div>
   );
